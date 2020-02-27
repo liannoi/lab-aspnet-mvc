@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Persistence"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Domain", "Src\Core\Domain\HumanResources.Domain.csproj", "{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanResources.Application", "Src\Core\Application\HumanResources.Application.csproj", "{9383C3D6-7169-492A-B81F-ACB4BC26ABDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9383C3D6-7169-492A-B81F-ACB4BC26ABDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9383C3D6-7169-492A-B81F-ACB4BC26ABDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9383C3D6-7169-492A-B81F-ACB4BC26ABDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9383C3D6-7169-492A-B81F-ACB4BC26ABDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -33,6 +39,7 @@ Global
 		{A80040AB-C1B5-4BD9-BD6C-52BC0723448C} = {2B679ACB-D80C-40EA-9873-1C01B3F9C60E}
 		{EFA16E2D-0F51-4CF8-9F03-0F411B6AA528} = {2B679ACB-D80C-40EA-9873-1C01B3F9C60E}
 		{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376} = {A80040AB-C1B5-4BD9-BD6C-52BC0723448C}
+		{9383C3D6-7169-492A-B81F-ACB4BC26ABDA} = {A80040AB-C1B5-4BD9-BD6C-52BC0723448C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1DBD7D5-F9A8-4C9F-B4D3-A8A5431701C0}
