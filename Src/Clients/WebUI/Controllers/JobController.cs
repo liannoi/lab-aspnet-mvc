@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
 using HumanResources.Common.Repositories;
+using HumanResources.Domain.Entities;
+using HumanResources.WebUI.Areas.Exceptions;
 
 namespace HumanResources.WebUI.Controllers
 {
@@ -21,6 +22,67 @@ namespace HumanResources.WebUI.Controllers
         public ActionResult Index()
         {
             return View(_jobTitleRepository.Result.Select());
+        }
+
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            if (id == 0)
+            {
+                PrepareViewBagForCreate();
+                return View(new JobTitleEntity());
+            }
+
+            PrepareViewBagForUpdate();
+            return View(_jobTitleRepository.Result.Find(e => e.JobTitleId == id).FirstOrDefault());
+        }
+
+        [HttpPost]
+        public ActionResult Update(JobTitleEntity entity)
+        {
+            CheckModelState();
+            AddOrUpdate(entity);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                _jobTitleRepository.Result.Remove(_jobTitleRepository.Result.Find(e => e.JobTitleId == id)
+                    .FirstOrDefault());
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+            }
+        }
+
+        private void AddOrUpdate(JobTitleEntity entity)
+        {
+            if (entity.JobTitleId == 0)
+                _jobTitleRepository.Result.Add(entity);
+            else
+                _jobTitleRepository.Result.Update(entity, entity);
+        }
+
+        private void CheckModelState()
+        {
+            if (!ModelState.IsValid) throw new InvalidModelStateException();
+        }
+
+        private void PrepareViewBagForCreate()
+        {
+            ViewBag.PageMessage = "Create new job";
+            ViewBag.ButtonText = "Add";
+        }
+
+        private void PrepareViewBagForUpdate()
+        {
+            ViewBag.PageMessage = "Update this job";
+            ViewBag.ButtonText = "Save";
         }
     }
 }

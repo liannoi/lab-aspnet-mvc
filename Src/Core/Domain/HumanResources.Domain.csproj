@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Entities\EmployeeEntity.cs" />
     <Compile Include="Entities\EmployeePromotionEntity.cs" />
     <Compile Include="Entities\JobTitleEntity.cs" />

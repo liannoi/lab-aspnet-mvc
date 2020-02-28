@@ -13,7 +13,7 @@ namespace HumanResources.ConsoleTests
             try
             {
                 var employeeEntities = employeePromotions.Result.Select().ToList();
-                employeeEntities.ForEach(e => Console.WriteLine(e.DateBirthday));
+                employeeEntities.ForEach(e => Console.WriteLine(e.EmployeeId));
             }
             catch (Exception e)
             {

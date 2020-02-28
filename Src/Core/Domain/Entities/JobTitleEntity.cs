@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using HumanResources.Domain.Common;
 
 namespace HumanResources.Domain.Entities
 {
-    public class JobTitleEntity : BaseEntity
+    public class JobTitleEntity
     {
-        [Required] [StringLength(100)] public string Name { get; set; }
+        public int JobTitleId { get; set; }
+        [Required] [StringLength(100)] public string NameJobTitle { get; set; }
     }
 }
