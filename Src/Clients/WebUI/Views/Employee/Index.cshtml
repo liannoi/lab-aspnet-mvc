@@ -1,12 +1,12 @@
-﻿@model IEnumerable<HumanResources.Domain.Entities.JobTitleEntity>
+﻿@model IEnumerable<HumanResources.Domain.Entities.EmployeeEntity>
 
 @{
-    ViewBag.Title = "Jobs";
+    ViewBag.Title = "Employees";
 }
 
 <div class="row">
     <div class="col-md-12">
-        <h2>Jobs</h2>
+        <h2>Employees</h2>
         <hr>
     </div>
 </div>
@@ -18,32 +18,43 @@
 </div>
 
 <div class="row mt-4">
-    <div class="offset-md-3"></div>
-    <div class="col-md-6">
+    <div class="offset-md-1"></div>
+    <div class="col-md-10">
         <table class="table table-bordered table-hover">
             <tr class="thead-light">
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birthday</th>
+                <th>INN</th>
                 <th>Actions</th>
             </tr>
             @foreach (var item in Model)
             {
-                <tr id="tr-@item.JobTitleId">
+                <tr id="tr-@item.EmployeeId">
                     <td class="text-capitalize pt-3">
-                        @Html.DisplayFor(modelItem => item.NameJobTitle)
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td class="text-capitalize pt-3">
+                        @Html.DisplayFor(modelItem => item.LastName)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit...", "Update", new {id = item.JobTitleId}, new {@class = "btn btn-secondary", data_id = item.JobTitleId})
-                        @Html.ActionLink("Delete", "Delete", new {id = item.JobTitleId}, new {@class = "btn btn-outline-danger btn-cmd-delete", data_id = item.JobTitleId})
+                        @Html.DisplayFor(modelItem => item.DateBirthday)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Inn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit...", "Update", new {id = item.EmployeeId}, new {@class = "btn btn-secondary", data_id = item.EmployeeId})
+                        @Html.ActionLink("Delete", "Delete", new {id = item.EmployeeId}, new {@class = "btn btn-outline-danger btn-cmd-delete", data_id = item.EmployeeId})
                     </td>
                 </tr>
             }
         </table>
     </div>
-    <div class="offset-md-3"></div>
+    <div class="offset-md-1"></div>
 </div>
 
-@section Scripts
-{
+@section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
         'use strict';
@@ -68,7 +79,7 @@
         }
 
         async function requestDelete(id) {
-            return await fetch(new Request(`/Job/Delete/${id}`),
+            return await fetch(new Request(`/Employee/Delete/${id}`),
                 {
                     method: 'POST',
                     headers: {
@@ -85,7 +96,7 @@
             function successDelete() {
                 Swal.fire(
                     'Deleted.',
-                    'Job successfully removed.',
+                    'Employee successfully removed.',
                     'success'
                 );
             }
