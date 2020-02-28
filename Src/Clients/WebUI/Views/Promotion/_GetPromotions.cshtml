@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HumanResources.Domain.Entities.EmployeePromotionEntity>
+
+<div class="row mt-2">
+    <div class="col-md-2">
+        @Html.ActionLink("New...", "Update", new {id = 0}, new {@class = "btn btn-success"})
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr class="thead-light">
+                <th>Name</th>
+                <th>Hire date</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr id="tr-@item.EmpPromotionId">
+                    <td class="text-capitalize pt-3">
+                        @Html.DisplayFor(modelItem => item.JobName)
+                    </td>
+                    <td class="pt-3">
+                        @Html.DisplayFor(modelItem => item.HireDate)
+                    </td>
+                    <td class="pt-3">
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit...", "Update", new {id = item.EmpPromotionId}, new {@class = "btn btn-secondary", data_id = item.EmpPromotionId})
+                        @Html.ActionLink("Delete", "Delete", new {id = item.EmpPromotionId}, new {@class = "btn btn-outline-danger btn-cmd-delete", data_id = item.EmpPromotionId})
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

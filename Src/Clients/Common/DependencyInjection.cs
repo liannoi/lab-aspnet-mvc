@@ -44,14 +44,14 @@ namespace HumanResources.Common
                         cfg.CreateMap<EmpPromotion, EmployeePromotionEntity>()
                             .ForMember(dest => dest.EmpPromotionId,
                                 member => member.MapFrom(map => map.EmpPromotionId))
-                            .ForMember(dest => dest.JobTitle, member => member.MapFrom(map => map.JobTitle))
-                            .ForMember(dest => dest.Employee, member => member.MapFrom(map => map.Employee))
                             .ForMember(dest => dest.HireDate, member => member.MapFrom(map => map.HireDate))
                             .ForMember(dest => dest.EmployeeId,
                                 member => member.MapFrom(map => map.Employee.EmployeeId))
                             .ForMember(dest => dest.JobTitleId,
                                 member => member.MapFrom(map => map.JobTitle.JobTitleId))
-                            .ForMember(dest => dest.Salary, member => member.MapFrom(map => map.Salary));
+                            .ForMember(dest => dest.Salary, member => member.MapFrom(map => map.Salary))
+                            .ForMember(dest => dest.JobName,
+                                member => member.MapFrom(map => map.JobTitle.NameJobTitle));
                         cfg.CreateMap<EmployeePromotionEntity, EmpPromotion>();
                     }).CreateMapper()
                 },
