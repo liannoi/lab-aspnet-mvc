@@ -5,18 +5,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EFA16E2D-0F51-4CF8-9F03-0F411B6AA528}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HumanResources.Persistence</RootNamespace>
-    <AssemblyName>HumanResources.Persistence</AssemblyName>
+    <ProjectGuid>{EA1FD504-F92E-4ACA-9DAF-7696A686FCCE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>HumanResources.ConsoleTests</RootNamespace>
+    <AssemblyName>HumanResources.ConsoleTests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApplicationGeneric.DependencyInjection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ApplicationGeneric.DependencyInjection.0.1.1\lib\net48\ApplicationGeneric.DependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="ApplicationGeneric.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ApplicationGeneric.Services.0.1.1\lib\net48\ApplicationGeneric.Services.dll</HintPath>
     </Reference>
@@ -62,8 +67,6 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -75,18 +78,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyInjection.cs" />
-    <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\EmpPromotion.cs" />
-    <Compile Include="HumanResourcesDbContext.cs" />
-    <Compile Include="Entities\JobTitle.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\Clients\Common\HumanResources.Common.csproj">
+      <Project>{27C4D58F-CDD6-4AC8-8655-8BEDC9AA3B5C}</Project>
+      <Name>HumanResources.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Core\Application\HumanResources.Application.csproj">
+      <Project>{9383c3d6-7169-492a-b81f-acb4bc26abda}</Project>
+      <Name>HumanResources.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Core\Domain\HumanResources.Domain.csproj">
+      <Project>{DE1EDA52-D5EE-4AAE-912A-DEA1A331B376}</Project>
+      <Name>HumanResources.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

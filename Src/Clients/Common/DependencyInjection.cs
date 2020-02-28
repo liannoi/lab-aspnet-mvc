@@ -18,43 +18,7 @@ namespace HumanResources.Common
     {
         protected override void Load(ContainerBuilder builder)
         {
-            var persistanceContainer = new ContainerConfig<PersistenceContainerModule>();
-
-            Inject(builder,
-                typeof(BaseBusinessService<Employee, EmployeeEntity>),
-                typeof(IBusinessService<EmployeeEntity>), new BaseBusinessServiceInitializer
-                {
-                    MapperConfiguration = new MapperConfiguration(cfg =>
-                    {
-                        cfg.AddExpressionMapping();
-                        cfg.CreateMap<Employee, EmployeeEntity>()
-                            .ForMember(nameof(EmployeeEntity.EntityId), o => o.MapFrom(s => s.EmployeeId))
-                            .ForMember(nameof(EmployeeEntity.Inn), o => o.MapFrom(s => s.INN));
-                        cfg.CreateMap<EmployeeEntity, Employee>();
-                    }).CreateMapper()
-                },
-                persistanceContainer.Container.Resolve<IDataService<Employee>>());
-
-            Inject(builder,
-                typeof(BaseBusinessService<EmpPromotion, EmployeePromotionEntity>),
-                typeof(IBusinessService<EmployeePromotionEntity>), new BaseBusinessServiceInitializer
-                {
-                    MapperConfiguration = new MapperConfiguration(cfg =>
-                    {
-                        cfg.AddExpressionMapping();
-                        cfg.CreateMap<EmpPromotion, EmployeePromotionEntity>()
-                            .ForMember(nameof(EmployeePromotionEntity.EntityId),
-                                o => o.MapFrom(s => s.EmpPromotionId.ToString()))
-                            .ForMember(nameof(EmployeePromotionEntity.JobTitle.Name),
-                                o => o.MapFrom(s => s.JobTitle.NameJobTitle))
-                            .ForMember(nameof(EmployeePromotionEntity.EmployeeId),
-                                o => o.MapFrom(s => s.EmployeeId.ToString()))
-                            .ForMember(nameof(EmployeePromotionEntity.Salary),
-                                o => o.MapFrom(s => Convert.ToInt32(s.Salary)));
-                        cfg.CreateMap<EmployeePromotionEntity, EmpPromotion>();
-                    }).CreateMapper()
-                },
-                persistanceContainer.Container.Resolve<IDataService<EmpPromotion>>());
+            var persistenceContainer = new ContainerConfig<PersistenceContainerModule>();
 
             Inject(builder,
                 typeof(BaseBusinessService<JobTitle, JobTitleEntity>),
@@ -64,11 +28,49 @@ namespace HumanResources.Common
                     {
                         cfg.AddExpressionMapping();
                         cfg.CreateMap<JobTitle, JobTitleEntity>()
-                            .ForMember(nameof(JobTitleEntity), o => o.MapFrom(s => s.NameJobTitle));
+                            .ForMember(dest => dest.Name, member => member.MapFrom(map => map.NameJobTitle));
                         cfg.CreateMap<JobTitleEntity, JobTitle>();
                     }).CreateMapper()
                 },
-                persistanceContainer.Container.Resolve<IDataService<JobTitle>>());
+                persistenceContainer.Container.Resolve<IDataService<JobTitle>>());
+
+            Inject(builder,
+                typeof(BaseBusinessService<EmpPromotion, EmployeePromotionEntity>),
+                typeof(IBusinessService<EmployeePromotionEntity>), new BaseBusinessServiceInitializer
+                {
+                    MapperConfiguration = new MapperConfiguration(cfg =>
+                    {
+                        cfg.AddExpressionMapping();
+                        cfg.CreateMap<EmpPromotion, EmployeePromotionEntity>()
+                            .ForMember(dest => dest.EntityId,
+                                member => member.MapFrom(map => map.EmpPromotionId.ToString()))
+                            .ForMember(dest => dest.JobTitle, member => member.MapFrom(map => map.JobTitle))
+                            .ForMember(dest => dest.Employee, member => member.MapFrom(map => map.Employee))
+                            .ForMember(dest => dest.HireDate, member => member.MapFrom(map => map.HireDate))
+                            .ForMember(dest => dest.EmployeeId,
+                                member => member.MapFrom(map => map.Employee.EmployeeId))
+                            .ForMember(dest => dest.JobTitleId,
+                                member => member.MapFrom(map => map.JobTitle.JobTitleId))
+                            .ForMember(dest => dest.Salary, member => member.MapFrom(map => map.Salary));
+                        cfg.CreateMap<EmployeePromotionEntity, EmpPromotion>();
+                    }).CreateMapper()
+                },
+                persistenceContainer.Container.Resolve<IDataService<EmpPromotion>>());
+
+            Inject(builder,
+                typeof(BaseBusinessService<Employee, EmployeeEntity>),
+                typeof(IBusinessService<EmployeeEntity>), new BaseBusinessServiceInitializer
+                {
+                    MapperConfiguration = new MapperConfiguration(cfg =>
+                    {
+                        cfg.AddExpressionMapping();
+                        cfg.CreateMap<Employee, EmployeeEntity>()
+                            .ForMember(dest => dest.EntityId, member => member.MapFrom(map => map.EmployeeId))
+                            .ForMember(dest => dest.Inn, member => member.MapFrom(map => map.INN));
+                        cfg.CreateMap<EmployeeEntity, Employee>();
+                    }).CreateMapper()
+                },
+                persistenceContainer.Container.Resolve<IDataService<Employee>>());
         }
 
         private void Inject<TEntity>(ContainerBuilder builder, Type registerType, Type asType,
