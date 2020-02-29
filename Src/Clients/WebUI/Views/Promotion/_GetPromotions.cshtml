@@ -11,7 +11,7 @@
         <table class="table table-bordered table-hover">
             <tr class="thead-light">
                 <th>Name</th>
-                <th>Hire date</th>
+                <th>Hire</th>
                 <th>Salary</th>
                 <th>Actions</th>
             </tr>
@@ -22,7 +22,7 @@
                         @Html.DisplayFor(modelItem => item.JobName)
                     </td>
                     <td class="pt-3">
-                        @Html.DisplayFor(modelItem => item.HireDate)
+                        @Html.DisplayFor(modelItem => item.HireDate.Month)/@Html.DisplayFor(modelitem => item.HireDate.Day)/@Html.DisplayFor(modelItem => item.HireDate.Year)
                     </td>
                     <td class="pt-3">
                         @Html.DisplayFor(modelItem => item.Salary)

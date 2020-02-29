@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using HumanResources.Common.Repositories;
 using HumanResources.Domain.Entities;
 using HumanResources.WebUI.Areas.Exceptions;
-using HumanResources.WebUI.Areas.JsonEntities;
 
 namespace HumanResources.WebUI.Controllers
 {
@@ -73,7 +72,7 @@ namespace HumanResources.WebUI.Controllers
 
         [HttpPost]
         [ActionName("_GetPromotions")]
-        public ActionResult GetPromotions(EmployeeJsonEntity json)
+        public ActionResult GetPromotions(EmployeeEntity json)
         {
             return PartialView(_employeePromotionRepository.Result.Find(e => e.EmployeeId == json.EmployeeId));
         }
