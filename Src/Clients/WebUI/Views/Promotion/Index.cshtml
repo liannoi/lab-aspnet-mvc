@@ -1,0 +1,109 @@
+﻿@model IEnumerable<HumanResources.Domain.Entities.EmployeeEntity>
+
+@{
+    ViewBag.Title = "Employees Promotions";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Employees Promotions</h2>
+        <hr>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3">
+        <ul class="list-group" id="employeesDropDownList">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item list-group-item-action" value="@item.EmployeeId">@item.FirstName @item.LastName</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-8" id="employeePromotion"></div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        'use strict';
+
+        async function requestLoad(employeeId) {
+            return await fetch(new Request(`/Promotion/_GetPromotions/`),
+                {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ EmployeeId: employeeId })
+                }).then(t => t.text()).then(
+                function(response) {
+                    document.querySelector('#employeePromotion').innerHTML = response;
+
+                    document.querySelectorAll('.btn-cmd-delete').forEach(a => {
+                        a.addEventListener('click',
+                            function(event) {
+                                event.preventDefault();
+                                askToDelete(a);
+                            });
+                    });
+                });
+        }
+
+        function test() {
+            document.querySelectorAll('#employeesDropDownList li').forEach(e => {
+                e.addEventListener('click',
+                    async function() {
+                        await requestLoad(this.value);
+                    });
+            });
+
+        }
+
+        function askToDelete(item) {
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then(async (result) => {
+                if (result.value) {
+                    if (!await requestDelete(item.dataset.id)) {
+                        return;
+                    }
+                    item.parentNode.parentNode.remove();
+                }
+            });
+        }
+
+        async function requestDelete(id) {
+            return await fetch(new Request(`/Promotion/Delete/${id}`),
+                {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                }).then(
+                function(response) {
+                    if (response.status === 200) {
+                        successDelete();
+                        return true;
+                    }
+                });
+
+            function successDelete() {
+                Swal.fire(
+                    'Deleted.',
+                    'Promotion successfully removed.',
+                    'success'
+                );
+            }
+        }
+
+        test();
+    </script>
+}

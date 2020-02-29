@@ -46,6 +46,7 @@
   <ItemGroup>
     <Folder Include="BusinessServices\" />
     <Folder Include="DataServices\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

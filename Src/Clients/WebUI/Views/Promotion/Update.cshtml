@@ -1,0 +1,73 @@
+﻿@model HumanResources.Domain.Entities.EmployeePromotionEntity
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h2>@ViewBag.PageMessage</h2>
+        <hr>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model => model.EmpPromotionId)
+        @Html.HiddenFor(model => model.JobTitleId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeId, "Employee", new {@class = "col-md-2"})
+            <div class="col-md-3">
+                @Html.DropDownList("employeeDropDownList", new SelectList(ViewBag.Employees, "Value", "Text"), new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.HireDate, "Hire date", new {@class = "col-md-2"})
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <i class="fa fa-th"></i>
+                        </div>
+                    </div>
+                    @Html.EditorFor(model => model.HireDate, new {htmlAttributes = new {@class = "form-control", id = "birthdayDatePicker"}})
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Salary, new {@class = "col-md-2"})
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Salary, new {htmlAttributes = new {@class = "form-control mb-3"}})
+                @Html.ValidationMessageFor(model => model.Salary, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobName, "Position", new {@class = "col-md-2"})
+            <div class="col-md-3">
+                @Html.DropDownList("empPromotionDropDownList", new SelectList(ViewBag.Jobs, "Value", "Text"), new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <div class="col-md-12">
+                <input type="submit" value="@ViewBag.ButtonText" class="btn btn-primary"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mt-5">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('#birthdayDatePicker').datepicker({
+            todayBtn: true
+        });
+        $('#birthdayDatePicker').datepicker('setDate',
+            new Date(@Model.HireDate.Year, @Model.HireDate.Month - 1, @Model.HireDate.Day));
+    </script>
+}
