@@ -25,13 +25,13 @@ namespace HumanResources.WebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View(_employeeRepository.Result.Select());
         }
 
         [HttpGet]
-        public ActionResult Update(int id)
+        public ViewResult Update(int id)
         {
             PrepareViewBagsForBlazor();
 
@@ -46,16 +46,16 @@ namespace HumanResources.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(EmployeePromotionEntity entity, FormCollection collection)
+        public RedirectToRouteResult Update(EmployeePromotionEntity entity, FormCollection collection)
         {
             CheckModelState();
             Restore(entity, collection);
             AddOrUpdate(entity);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public HttpStatusCodeResult Delete(int id)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace HumanResources.WebUI.Controllers
 
         [HttpPost]
         [ActionName("_GetPromotions")]
-        public ActionResult GetPromotions(EmployeeEntity json)
+        public PartialViewResult GetPromotions(EmployeeEntity json)
         {
             return PartialView(_employeePromotionRepository.Result.Find(e => e.EmployeeId == json.EmployeeId));
         }

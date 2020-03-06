@@ -1,4 +1,4 @@
-﻿using ApplicationGeneric.DependencyInjection;
+﻿using ApplicationGeneric.DependencyInjection.Core;
 using Autofac;
 using Autofac.Core;
 

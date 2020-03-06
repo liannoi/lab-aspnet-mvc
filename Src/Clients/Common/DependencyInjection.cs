@@ -1,5 +1,5 @@
 ﻿using System;
-using ApplicationGeneric.DependencyInjection;
+using ApplicationGeneric.DependencyInjection.Core;
 using ApplicationGeneric.Services.BusinessServices;
 using ApplicationGeneric.Services.DataServices;
 using ApplicationGeneric.Services.Infrastructure.Initializers;

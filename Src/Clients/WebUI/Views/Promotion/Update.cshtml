@@ -1,7 +1,7 @@
 ﻿@model HumanResources.Domain.Entities.EmployeePromotionEntity
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
 @using (Html.BeginForm())
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.HireDate, "Hire date", new {@class = "col-md-2"})
+            @Html.LabelFor(model => model.HireDate, "Hire", new {@class = "col-md-2"})
             <div class="col-sm-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.JobName, "Position", new {@class = "col-md-2"})
             <div class="col-md-3">
-                @Html.DropDownList("empPromotionDropDownList", new SelectList(ViewBag.Jobs, "Value", "Text"), new {@class = "form-control"})
+                @Html.DropDownList("empPromotionDropDownList", new SelectList(ViewBag.Jobs, "Value", "Text"), new {@class = "form-control text-capitalize"})
             </div>
         </div>
         <div class="form-group mt-4">

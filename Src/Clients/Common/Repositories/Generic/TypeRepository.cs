@@ -1,4 +1,4 @@
-﻿using ApplicationGeneric.DependencyInjection;
+﻿using ApplicationGeneric.DependencyInjection.Core;
 
 namespace HumanResources.Common.Repositories.Generic
 {

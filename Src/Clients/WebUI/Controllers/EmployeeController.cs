@@ -19,13 +19,13 @@ namespace HumanResources.WebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View(_employeeRepository.Result.Select());
         }
 
         [HttpGet]
-        public ActionResult Update(int id)
+        public ViewResult Update(int id)
         {
             if (id == 0)
             {
@@ -38,15 +38,15 @@ namespace HumanResources.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(EmployeeEntity entity)
+        public RedirectToRouteResult Update(EmployeeEntity entity)
         {
             CheckModelState();
             AddOrUpdate(entity);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public HttpStatusCodeResult Delete(int id)
         {
             try
             {
